@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind Fonts Overview</title>
+  <link href="./dist/output.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/flexboxes.css">
+  <link rel="stylesheet" href="assets/nav.css">
+  <link rel="stylesheet" href="assets/typography.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- NAV -->
+  <nav class="w-full fixed top-0 z-50
+  bg-black/40 backdrop-blur-md
+  border-b border-white/10
+  text-white px-10 py-4
+  flex justify-between items-center
+  shadow-lg">
+  <button onclick="window.location.href='index.html'" 
+   class="text-lg bg-[var(--blue)] px-4 py-2 rounded-lg hover:bg-blue-700 transition">⬅ Back</button>
+  <h1 class="text-2xl font-bold">Week 6 – Interactions</h1>
+  </nav>
+  <main class="pt-28 px-10 pb-24">
+    
+  </main>
+  
+  
+  
+  <!-- Intro Card -->
+  <div class="bg-white p-8 rounded-xl shadow-xl mb-10">
+    <h2 class="text-3xl font-bold text-[var(--blue)]">Week 6: Verdere uitwerking & kleine interacties</h2>
+    <p class="text-gray-600">20 oktober 2025</p>
+    
+    <p class="mt-6 text-lg text-gray-700 leading-relaxed">
+      Deze week werkte ik verder aan de trein-app en breidde ik bestaande schermen uit.
+      Ik focuste op basisinteracties zoals aanmelden, navigatie en het bekijken van
+      vertrek- en aankomstinformatie. De nadruk lag op structuur, duidelijkheid
+      en het logisch laten aanvoelen van de flow.
+      </p>
+  </div>
+  
+  <!-- 3 Columns -->
+  <div class="grid grid-cols-3 gap-8 mb-12">
+  
+  <div class="bg-white p-6 rounded-xl shadow-lg border-t-[6px] border-[var(--blue)]">
+  <h3 class="text-xl font-semibold text-[var(--blue)]"> Wat ik deed</h3>
+  <ul class="mt-3 text-gray-700">
+    <li>– Login- en accountschermen uitgewerkt</li>
+    <li>– Home-scherm verder opgebouwd</li>
+    <li>– Vertrek- en aankomstoverzichten uitgewerkt</li>
+    <li>– Basis navigatie getest</li>
+  </ul>
+  </div>
+  
+  <div class="bg-white p-6 rounded-xl shadow-lg border-t-[6px] border-[#E62929]">
+  <h3 class="text-xl font-semibold text-[#E62929]"> Problemen</h3>
+  <ul class="mt-3 text-gray-700">
+    <ul class="mt-3 text-gray-700">
+      <li>– Nog weinig tijd voor verfijnde animaties</li>
+      <li>– Interacties zijn voorlopig functioneel</li>
+      <li>– Nog geen uitgebreide gebruikersfeedback</li>
+    </ul>
+  </div>
+  
+  <div class="bg-white p-6 rounded-xl shadow-lg border-t-[6px] border-[#4A90E2]">
+  <h3 class="text-xl font-semibold text-[#4A90E2]"> Volgende stappen</h3>
+  <ul class="mt-3 text-gray-700">
+    <li>– Interacties verfijnen</li>
+    <li>– States (loading, error) toevoegen</li>
+    <li>– Flow testen met gebruikers</li>
+  </ul>
+  </div>
+  
+  </div>
+  
+  <!-- Screens -->
+  <div class="bg-white p-8 rounded-xl shadow-xl mb-20">
+    <h3 class="text-2xl font-bold text-[var(--blue)] mb-6">
+      App-schermen – verdere uitwerking
+    </h3>
+  
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-6">
+  
+      <figure>
+        <img src="aanmaken.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Account aanmaken</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="login.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Login scherm</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="home.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Home overzicht</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="home2.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Vertrek overzicht</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="home 4.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Aankomst overzicht</figcaption>
+      </figure>
+  
+    </div>
+  </div>
+  
+  <!-- FOOTER -->
+  <footer class="bg-[#111] text-white py-6 text-center">
+  <p class="opacity-70">Lost in Tra(i)nslation – Week 6 © 2025</p>
+  </footer>
+  <style>
+    body {
+      background:
+        radial-gradient(
+          circle at bottom left,
+          rgba(59,130,246,0.25),
+          transparent 55%
+        ),
+        linear-gradient(
+          180deg,
+          #a32121 0%,
+          #933131 20%,
+          #0a1b68 55%,
+          #040c2e 100%
+        );
+    
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    </style>
+  </body>
+  </html>

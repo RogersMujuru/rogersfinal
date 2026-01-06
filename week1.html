@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind Fonts Overview</title>
+  <link href="./dist/output.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/flexboxes.css">
+  <link rel="stylesheet" href="assets/nav.css">
+  <link rel="stylesheet" href="assets/typography.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- NAV -->
+  <nav class="w-full fixed top-0 z-50
+            bg-black/40 backdrop-blur-md
+            border-b border-white/10
+            text-white px-10 py-4
+            flex justify-between items-center
+            shadow-lg">
+            
+      <button onclick="window.location.href='index.html'"
+          class="text-lg bg-[#005BBB] px-4 py-2 rounded-lg hover:bg-[#0070CC] transition">
+          ⬅ Back
+      </button>
+      <h1 class="text-2xl font-bold">Week 1 – Introduction & Low-Fi Sketching</h1>
+      
+  </nav>
+  <main class="pt-28 px-10 pb-24">
+
+  </main>
+
+
+ 
+
+  <div class="px-10 py-10">
+
+      <!-- INTRO BLOCK -->
+      <div class="bg-white p-8 rounded-xl shadow-xl mb-10">
+          <h2 class="text-3xl font-bold text-[#005BBB]">Week 1: Kick-off & First Concepts</h2>
+          <p class="text-gray-600 mt-2">15 september 2025</p>
+
+          <p class="mt-6 text-lg text-gray-700 leading-relaxed">
+              Deze week startte het project <strong>Lost in Tra(i)nslation</strong>. 
+              Ik kreeg inzicht in de doelstelling: een interface ontwerpen die meertalige reizigers duidelijk en stressvrij begeleidt.
+              Ik analyseerde bestaande vervoersinterfaces, zoals NMBS en MTA, en begon met eerste low-fidelity schetsen om mogelijke layouts te verkennen.
+          </p>
+      </div>
+
+      <!-- GRID -->
+      <div class="grid grid-cols-3 gap-8 mb-12">
+
+          <!-- DONE -->
+          <div class="bg-white p-6 rounded-xl shadow-lg border-t-[6px] border-[#005BBB]">
+              <h3 class="text-xl font-semibold text-[#005BBB]"> Wat ik heb gedaan</h3>
+              <ul class="mt-3 text-gray-700 leading-relaxed">
+                  <li>– Introductie opdracht</li>
+                  <li>– Benchmark NMBS, MTA, Eurostar</li>
+                  <li>– Low-fi schetsen van mogelijke schermstructuren</li>
+                  <li>– Observaties van hoe reizigers info lezen</li>
+              </ul>
+          </div>
+
+          <!-- INSIGHTS -->
+          <div class="bg-white p-6 rounded-xl shadow-lg border-t-[6px] border-[#E62929]">
+              <h3 class="text-xl font-semibold text-[#E62929]"> Belangrijkste inzichten</h3>
+              <ul class="mt-3 text-gray-700">
+                  <li>– Taalselectie moet onmiddellijk zichtbaar zijn</li>
+                  <li>– Typografie moet extreem duidelijk zijn</li>
+                  <li>– Pictogrammen worden sneller verwerkt dan tekst</li>
+                  <li>– Contrast is noodzakelijk bij realtime info</li>
+              </ul>
+          </div>
+
+          <!-- NEXT -->
+          <div class="bg-white p-6 rounded-xl shadow-lg border-t-[6px] border-[#4A90E2]">
+              <h3 class="text-xl font-semibold text-[#4A90E2]"> Volgende stappen</h3>
+              <ul class="mt-3 text-gray-700">
+                  <li>– Wireframes maken</li>
+                  <li>– Structuur opbouwen volgens UI-principes</li>
+                  <li>– Begin aan mid-fi prototypes</li>
+              </ul>
+          </div>
+      </div>
+
+      <!-- SCREENSHOTS -->
+      <div class="bg-white p-8 rounded-xl shadow-xl mb-12">
+          <h3 class="text-2xl font-bold text-[#005BBB] mb-4"> Screens / Schetsen</h3>
+
+          <div class="grid grid-cols-2 gap-6">
+              <div class="w-full h-[260px] bg-gray-300 rounded-xl flex items-center justify-center text-gray-600">
+                <img 
+                src="schets1.JPG" 
+                alt=""
+                class="w-full h-full object-contain rounded-lg"
+              />
+              </div>
+              <div class="w-full h-[260px] bg-gray-300 rounded-xl flex items-center justify-center text-gray-600">
+                <img 
+                src="schets2.JPG" 
+                alt=""
+                class="w-full h-full object-contain rounded-lg"
+              />
+              </div>
+          </div>
+      </div>
+
+      <!-- REFLECTION -->
+      <div class="bg-white p-8 rounded-xl shadow-xl mb-20">
+          <h3 class="text-2xl font-bold text-[#005BBB] mb-4"> Reflectie</h3>
+
+          <p class="text-gray-700 text-lg leading-relaxed">
+              Deze eerste week ging vooral over begrijpen wat reizigers nodig hebben en hoe informatie gelezen wordt.
+              Mijn low-fi schetsen hielpen om snel ideeën vast te leggen zonder tijd te verliezen. 
+              Volgende week wil ik meer structuur brengen in de wireframes en focussen op hiërarchie.
+          </p>
+      </div>
+  </div>
+
+  <footer class="w-full bg-[#111] text-white text-center py-6 mt-10">
+      <p class="opacity-70">Lost in Tra(i)nslation – Week 1 © 2025</p>
+  </footer>
+<style>
+body {
+  background:
+    radial-gradient(
+      circle at bottom left,
+      rgba(59,130,246,0.25),
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      #a32121 0%,
+      #933131 20%,
+      #0a1b68 55%,
+      #040c2e 100%
+    );
+
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+</style>
+</body>
+</html>

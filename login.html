@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>  <title>Login – Process Log</title></title>
+ 
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/flexboxes.css">
+  <link rel="stylesheet" href="assets/nav.css">
+  <link rel="stylesheet" href="assets/typography.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <style>
+        html, body {
+          min-height: 100%;
+        }
+    
+        body {
+          background:
+            radial-gradient(
+              circle at bottom left,
+              rgba(59,130,246,0.25),
+              transparent 55%
+            ),
+            linear-gradient(
+              180deg,
+              #7f1d1d 0%,
+              #933131 20%,
+              #0a1b68 55%,
+              #040c2e 100%
+            );
+          background-attachment: fixed;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+    
+        /* ===== LOGIN ANIMATION ===== */
+        .login-card {
+          opacity: 0;
+          transform: scale(.95) translateY(10px);
+          animation: fadeIn .6s ease forwards;
+        }
+    
+        @keyframes fadeIn {
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+    
+        /* ===== ERROR STATE ===== */
+        .input-error {
+          border-color: rgb(239 68 68);
+          animation: shake .25s ease;
+        }
+    
+        @keyframes shake {
+          25% { transform: translateX(-4px); }
+          50% { transform: translateX(4px); }
+          75% { transform: translateX(-4px); }
+        }
+      </style>
+    </head>
+    
+    <body class="relative">
+    
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-10 py-4 flex items-center gap-10 text-white">
+        <span class="text-red-400 font-bold text-lg">PROCESS</span>
+        <span class="opacity-60">Login</span>
+      </div>
+    </nav>
+    
+    <!-- LOGIN -->
+    <div class="min-h-screen flex items-center justify-center px-6 pt-24 relative z-10">
+        
+    
+      <div class="login-card w-full max-w-md bg-black/50 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_40px_120px_rgba(0,0,0,0.6)] p-10 text-white">
+    
+        <h1 class="text-3xl font-bold mb-2">Login</h1>
+        <p class="text-white/70 mb-8">Access your process log</p>
+    
+        <div id="errorMsg" class="hidden mb-4 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2">
+          Incorrect email or password
+        </div>
+    
+        <form id="loginForm" class="space-y-6">
+    
+          <div>
+            <label class="block text-sm mb-2 text-white/80">Email</label>
+            <input id="email" type="email" placeholder="you@student.be"
+              class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+          </div>
+    
+          <div>
+            <label class="block text-sm mb-2 text-white/80">Password</label>
+            <input id="password" type="password" placeholder="••••••••"
+              class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+          </div>
+    
+          <button type="submit"
+            class="w-full py-3 rounded-xl font-semibold bg-gradient-to-r from-red-500 to-blue-500 hover:from-red-400 hover:to-blue-400 transition-all duration-300 shadow-lg shadow-black/40">
+            Login
+          </button>
+        </form>
+    
+        <p class="text-xs text-white/50 mt-6 text-center">For educational use only</p>
+      </div>
+    </div>
+    
+    <script>
+    const form = document.getElementById("loginForm");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const errorMsg = document.getElementById("errorMsg");
+    
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+    
+      errorMsg.classList.add("hidden");
+      email.classList.remove("input-error");
+      password.classList.remove("input-error");
+    
+      if (email.value === "student@ap.be" && password.value === "1234") {
+        form.querySelector("button").innerText = "Logging in...";
+        form.querySelector("button").classList.add("opacity-80");
+    
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 900);
+    
+      } else {
+        errorMsg.classList.remove("hidden");
+        email.classList.add("input-error");
+        password.classList.add("input-error");
+      }
+    });
+    </script>
+    
+    </body>
+    
+
+</html>

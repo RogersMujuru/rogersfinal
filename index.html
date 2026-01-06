@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link href="./dist/output.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/flexboxes.css">
+  <link rel="stylesheet" href="assets/nav.css">
+  <link rel="stylesheet" href="assets/typography.css">
+
+
+  <meta charset="UTF-8">
+  <title>Lost in Tra(i)nslation – Process Website</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+
+   /* ================= GLOBAL ================= */
+ 
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body{
+  background:
+    radial-gradient(circle at bottom left, rgba(59,130,246,0.25), transparent 55%),
+    linear-gradient(
+      180deg,
+      #a32121 0%,
+      #933131 20%,
+      #0a1b68 55%,
+      #040c2e 100%
+    );
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+
+/* ================= NAV LINKS ================= */
+.nav-link{
+  position:relative;
+  padding-bottom:4px;
+  color:rgba(255,255,255,.8);
+  transition:.25s;
+}
+
+.nav-link:hover{
+  color:white;
+}
+
+.nav-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg,#ef4444,#3b82f6);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:.25s;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after{
+  transform:scaleX(1);
+}
+
+
+/* ================= TABS ================= */
+.tab{
+  padding-bottom:.5rem;
+  border-bottom:4px solid transparent;
+  transition:.2s ease;
+}
+
+.tab:hover,
+.tab.active{
+  border-color:#FFCC00;
+}
+
+.tab-panel{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transform:translateY(10px);
+  transition:.3s ease;
+  pointer-events:none;
+}
+
+.tab-panel.active{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+
+/* ================= VARIABLES ================= */
+:root{
+  --darkblue:#000B33;
+  --red:#E62929;
+  --lightblue:#4A90E2;
+  --white:#FFFFFF;
+}
+
+
+/* ================= HOVER PANEL ================= */
+.hover-panel{
+  position:absolute;
+  top:2.8rem;
+  left:0;
+  width:340px;
+  background:white;
+  padding:1.25rem;
+  border-radius:1.25rem;
+  box-shadow:0 25px 60px rgba(0,0,0,.15);
+  opacity:0;
+  transform:translateY(10px);
+  pointer-events:none;
+  transition:.25s ease;
+  z-index:9999;
+}
+
+.group:hover .hover-panel{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+@media (max-width:768px){
+  .hover-panel{ display:none; }
+}
+
+
+/* ================= WEEK CARDS ================= */
+.card-wrapper{
+  position:relative;
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(2,6,23,.95),rgba(2,6,23,.85));
+  backdrop-filter:blur(6px);
+  transition:.35s ease;
+}
+
+.card-wrapper:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 0 22px rgba(74,144,226,.5);
+}
+
+.card-wrapper:active::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,.15);
+  border-radius:inherit;
+  animation:ripple .4s ease;
+}
+
+@keyframes ripple{
+  from{opacity:.35}
+  to{opacity:0}
+}
+
+.card-header{
+  background:linear-gradient(90deg,var(--red),#ff6a6a);
+}
+
+.card-body{
+  box-shadow:inset 0 0 14px rgba(0,0,0,.35);
+}
+
+.loading-bar{
+  height:4px;
+  width:0%;
+  background:var(--lightblue);
+  border-radius:4px;
+  transition:width .5s ease;
+}
+
+.card-wrapper:hover .loading-bar{
+  width:100%;
+}
+
+
+/* ================= PLANNER ================= */
+.week-switch{
+  padding:10px 16px;
+  border-radius:999px;
+  font-weight:600;
+  background:rgba(255,255,255,.08);
+  color:white;
+  transition:.35s cubic-bezier(.34,1.56,.64,1);
+}
+
+.week-switch:hover{
+  transform:scale(1.08);
+}
+
+.week-switch.active{
+  background:linear-gradient(90deg,#ef4444,#3b82f6);
+}
+
+.planner-card{
+  background:linear-gradient(180deg,rgba(2,6,23,.95),rgba(2,6,23,.85));
+  backdrop-filter:blur(18px);
+  padding:40px;
+  border-radius:32px;
+  box-shadow:0 60px 160px rgba(0,0,0,.85);
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.task{
+  background:rgba(255,255,255,.08);
+  padding:10px 12px;
+  border-radius:12px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+
+/* ================= MODAL BLUR ================= */
+body.modal-open > *:not(#plannerOverlay){
+  filter:blur(18px) brightness(.7);
+  pointer-events:none;
+  transition:.4s ease;
+}
+
+
+.task input {
+  accent-color: #3b82f6;
+  transform: scale(1.1);
+}
+
+.task {
+  transition: .25s ease;
+}
+
+.task:hover {
+  background: rgba(255,255,255,.14);
+}
+.week-switch.active {
+  box-shadow: 0 0 0 3px rgba(59,130,246,.35),
+              0 8px 24px rgba(59,130,246,.45);
+}
+
+  </style>
+  
+
+</head>
+
+<body class="relative min-h-screen bg-fixed
+             bg-[linear-gradient(180deg,#7f1d1d_0%,#020617_60%)]">
+
+
+
+
+    
+
+
+
+      <!-- LOGO -->
+      <nav class="fixed top-0 left-0 w-full h-16 z-50 bg-black/40 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto h-full flex items-center justify-between px-10 text-white">
+      
+          <!-- LEFT -->
+          <div class="flex gap-8 items-center font-semibold">
+            <span class="text-red-400 font-bold">PROCESS</span>
+            <button id="openPlanner" class="nav-link">Schedules</button>
+           
+          </div>
+      
+          <!-- RIGHT (SEARCH) -->
+          <div class="relative flex items-center">
+      
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Search…"
+              class="w-0 opacity-0 scale-95
+                     px-4 py-2 rounded-full
+                     bg-white text-black
+                     transition-all duration-300
+                     focus:w-56 focus:opacity-100 focus:scale-100"
+            />
+      
+            <button
+              id="searchToggle"
+              type="button"
+              class="ml-3 p-2 rounded-full
+                     hover:bg-white/10 transition
+                     flex items-center justify-center">
+      
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   stroke="currentColor"
+                   stroke-width="1.5"
+                   class="w-6 h-6 text-white">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m21 21-5.197-5.197
+                         A7.5 7.5 0 1 0 5.196 5.196
+                         a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+      
+            </button>
+          </div>
+      
+        </div>
+      </nav>
+      
+
+
+  <!-- 🔵 HERO IMAGE -->
+  <div class="w-full h-[380px] bg-cover bg-center"
+       style="background-image: url('https://images.unsplash.com/photo-1545569341-b797b4f94647?q=80&w=1200');">
+  </div>
+
+  <!-- 🔵 PANELS -->
+  <div class="w-full mt-[-120px] flex gap-10 px-16 mb-24">
+
+      <!-- LEFT PANEL (Plan a Week) -->
+      <div class="bg-[#0b3b8f] text-white
+            w-1/3 p-6 rounded-2xl
+            border border-white/10
+            shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+          <h2 class="text-2xl font-bold mb-4">Plan a Week</h2>
+
+          <label class="block text-sm opacity-90">Select Week</label>
+          <select id="weekSelector" class="w-full mt-2 mb-4 p-2 rounded text-black">
+              <option value="1">Week 1</option>
+              <option value="2">Week 2</option>
+              <option value="3">Week 3</option>
+              <option value="4">Week 4</option>
+              <option value="5">Week 5</option>
+              <option value="6">Week 6</option>
+              <option value="7">Week 7</option>
+              <option value="8">Week 8</option>
+              <option value="9">Week 9</option>
+              <option value="10">Week 10</option>
+          </select>
+
+          <button id="openWeekBtn"
+                  class="w-full bg-white text-[#005BBB] py-2 rounded-xl font-semibold mt-4">
+              Open Week Page
+          </button>
+      </div>
+
+<!-- RIGHT PANEL -->
+<div class="bg-white/95 backdrop-blur
+            w-2/3 p-8 rounded-2xl
+            shadow-[0_30px_80px_rgba(0,0,0,0.35)]
+            relative overflow-hidden">
+  <!-- TABS -->
+  <div class="flex gap-8 border-b pb-3 mb-6 font-semibold text-[#005BBB]">
+
+    <button class="tab active" data-tab="overview">Overview</button>
+    <button class="tab" data-tab="sketches">Sketches</button>
+    <button class="tab" data-tab="midfi">Mid-Fi</button>
+    <button class="tab" data-tab="hifi">Hi-Fi</button>
+
+  </div>
+
+  <!-- HOVER / PREVIEW CONTENT -->
+  <div class="relative h-[160px]">
+
+    <div class="tab-panel active" id="overview">
+      <h3 class="text-2xl font-bold mb-2">Overview</h3>
+      <p class="text-gray-600 max-w-lg">
+        Algemene samenvatting van het project, doelstellingen
+        en belangrijkste inzichten.
+      </p>
+    </div>
+
+    <div class="tab-panel" id="sketches">
+      <h3 class="text-2xl font-bold mb-2">Sketches</h3>
+      <p class="text-gray-600 max-w-lg">
+        Eerste ideeën, wireframes en conceptschetsen
+        die de basis vormden van het ontwerp.
+      </p>
+    </div>
+
+    <div class="tab-panel" id="midfi">
+      <h3 class="text-2xl font-bold mb-2">Mid-Fi</h3>
+      <p class="text-gray-600 max-w-lg">
+        Structuur, hiërarchie en interacties
+        zonder visuele afleiding.
+      </p>
+    </div>
+
+    <div class="tab-panel" id="hifi">
+      <h3 class="text-2xl font-bold mb-2">Hi-Fi</h3>
+      <p class="text-gray-600 max-w-lg">
+        Finale UI, kleurgebruik, typografie
+        en micro-interacties.
+      </p>
+    </div>
+
+  </div>
+</div>
+      
+
+
+</div>
+
+       
+
+  </div>
+
+  <!-- 🔵 WEEK CARDS -->
+  <div class="grid grid-cols-3 gap-10 px-10">
+
+      <!-- WEEK 1 -->
+      <div class="week-card card-wrapper bg-white rounded-2xl shadow-xl cursor-pointer" data-url="week1.html">
+          <div class="card-header h-12 rounded-t-2xl flex items-center justify-between px-4">
+            <div class="text-white font-bold tracking-wide">
+              WEEK 1
+            </div>
+             
+          </div>
+          <div class="card-body bg-[var(--darkblue)] text-white rounded-b-2xl p-6">
+              <div class="flex justify-between items-center mb-2">
+                  <p class="text-xl font-semibold tracking-wide">Process Log</p>
+                  
+              </div>
+              <div class="flex items-center gap-2 mb-3">
+                  <div class="h-1 w-full bg-gray-600 rounded-full"></div>
+                  <span class="text-xs text-[var(--lightblue)]">W1</span>
+              </div>
+              <div class="loading-bar"></div>
+          </div>
+      </div>
+
+      <!-- WEEK 2 -->
+      <div class="week-card card-wrapper bg-white rounded-2xl shadow-xl cursor-pointer" data-url="week2.html">
+          <div class="card-header h-12 rounded-t-2xl flex items-center justify-between px-4">
+            <div class="text-white font-bold tracking-wide">
+              WEEK 2
+            </div>
+              
+          </div>
+          <div class="card-body bg-[var(--darkblue)] text-white rounded-b-2xl p-6">
+              <div class="flex justify-between items-center mb-2">
+                  <p class="text-xl font-semibold tracking-wide">Analysis</p>
+                  
+              </div>
+              <div class="flex items-center gap-2 mb-3">
+                  <div class="h-1 w-full bg-gray-600 rounded-full"></div>
+                  <span class="text-xs text-[var(--lightblue)]">W2</span>
+              </div>
+              <div class="loading-bar"></div>
+          </div>
+      </div>
+
+      <!-- WEEK 3 -->
+      <div class="week-card card-wrapper bg-white rounded-2xl shadow-xl cursor-pointer" data-url="week3.html">
+          <div class="card-header h-12 rounded-t-2xl flex items-center justify-between px-4">
+            <div class="text-white font-bold tracking-wide">
+              WEEK 3
+            </div>
+              
+          </div>
+          <div class="card-body bg-[var(--darkblue)] text-white rounded-b-2xl p-6">
+              <div class="flex justify-between items-center mb-2">
+                  <p class="text-xl font-semibold tracking-wide">Mid-Fi</p>
+                  
+              </div>
+              <div class="flex items-center gap-2 mb-3">
+                  <div class="h-1 w-full bg-gray-600 rounded-full"></div>
+                  <span class="text-xs text-[var(--lightblue)]">W3</span>
+              </div>
+              <div class="loading-bar"></div>
+          </div>
+      </div>
+
+      <!-- WEEK 4 -->
+      <div class="week-card card-wrapper bg-white rounded-2xl shadow-xl cursor-pointer" data-url="week4.html">
+          <div class="card-header h-12 rounded-t-2xl flex items-center justify-between px-4">
+            <div class="text-white font-bold tracking-wide">
+              WEEK 4
+            </div>
+              
+          </div>
+          <div class="card-body bg-[var(--darkblue)] text-white rounded-b-2xl p-6">
+              <div class="flex justify-between items-center mb-2">
+                  <p class="text-xl font-semibold tracking-wide">Hi-Fi Start</p>
+                  
+              </div>
+              <div class="flex items-center gap-2 mb-3">
+                  <div class="h-1 w-full bg-gray-600 rounded-full"></div>
+                  <span class="text-xs text-[var(--lightblue)]">W4</span>
+              </div>
+              <div class="loading-bar"></div>
+          </div>
+      </div>
+
+      <!-- WEEK 5 -->
+      <div class="week-card card-wrapper bg-white rounded-2xl shadow-xl cursor-pointer" data-url="week5.html">
+          <div class="card-header h-12 rounded-t-2xl flex items-center justify-between px-4">
+            <div class="text-white font-bold tracking-wide">
+              WEEK 5
+            </div>
+              
+          </div>
+          <div class="card-body bg-[var(--darkblue)] text-white rounded-b-2xl p-6">
+              <div class="flex justify-between items-center mb-2">
+                  <p class="text-xl font-semibold tracking-wide">Color & Type</p>
+                 
+              </div>
+              <div class="flex items-center gap-2 mb-3">
+                  <div class="h-1 w-full bg-gray-600 rounded-full"></div>
+                  <span class="text-xs text-[var(--lightblue)]">W5</span>
+              </div>
+              <div class="loading-bar"></div>
+          </div>
+      </div>
+
+      <!-- WEEK 6 -->
+      <div class="week-card card-wrapper bg-white rounded-2xl shadow-xl cursor-pointer" data-url="week6.html">
+          <div class="card-header h-12 rounded-t-2xl flex items-center justify-between px-4">
+            <div class="text-white font-bold tracking-wide">
+              WEEK 6
+            </div>
+              
+          </div>
+          <div class="card-body bg-[var(--darkblue)] text-white rounded-b-2xl p-6">
+              <div class="flex justify-between items-center mb-2">
+                  <p class="text-xl font-semibold tracking-wide">Interactions</p>
+                  
+              </div>
+              <div class="flex items-center gap-2 mb-3">
+                  <div class="h-1 w-full bg-gray-600 rounded-full"></div>
+                  <span class="text-xs text-[var(--lightblue)]">W6</span>
+              </div>
+              <div class="loading-bar"></div>
+          </div>
+      </div>
+
+      <!-- WEEK 7 -->
+      <div class="week-card card-wrapper bg-white rounded-2xl shadow-xl cursor-pointer" data-url="week7.html">
+          <div class="card-header h-12 rounded-t-2xl flex items-center justify-between px-4">
+            <div class="text-white font-bold tracking-wide">
+              WEEK 7
+            </div>
+              
+          </div>
+          <div class="card-body bg-[var(--darkblue)] text-white rounded-b-2xl p-6">
+              <div class="flex justify-between items-center mb-2">
+                  <p class="text-xl font-semibold tracking-wide">User Testing</p>
+                  
+              </div>
+              <div class="flex items-center gap-2 mb-3">
+                  <div class="h-1 w-full bg-gray-600 rounded-full"></div>
+                  <span class="text-xs text-[var(--lightblue)]">W7</span>
+              </div>
+              <div class="loading-bar"></div>
+          </div>
+      </div>
+
+      <!-- WEEK 8 -->
+      <div class="week-card card-wrapper bg-white rounded-2xl shadow-xl cursor-pointer" data-url="week8.html">
+          <div class="card-header h-12 rounded-t-2xl flex items-center justify-between px-4">
+            <div class="text-white font-bold tracking-wide">
+              WEEK 8
+            </div>
+              
+          </div>
+          <div class="card-body bg-[var(--darkblue)] text-white rounded-b-2xl p-6">
+              <div class="flex justify-between items-center mb-2">
+                  <p class="text-xl font-semibold tracking-wide">Final UI</p>
+                  
+              </div>
+              <div class="flex items-center gap-2 mb-3">
+                  <div class="h-1 w-full bg-gray-600 rounded-full"></div>
+                  <span class="text-xs text-[var(--lightblue)]">W8</span>
+              </div>
+              <div class="loading-bar"></div>
+          </div>
+      </div>
+
+      <!-- WEEK 9 -->
+      <div class="week-card card-wrapper bg-white rounded-2xl shadow-xl cursor-pointer" data-url="week9.html">
+          <div class="card-header h-12 rounded-t-2xl flex items-center justify-between px-4">
+            <div class="text-white font-bold tracking-wide">
+              WEEK 9
+            </div>
+              
+          </div>
+          <div class="card-body bg-[var(--darkblue)] text-white rounded-b-2xl p-6">
+              <div class="flex justify-between items-center mb-2">
+                  <p class="text-xl font-semibold tracking-wide">Presentation</p>
+                  
+              </div>
+              <div class="flex items-center gap-2 mb-3">
+                  <div class="h-1 w-full bg-gray-600 rounded-full"></div>
+                  <span class="text-xs text-[var(--lightblue)]">W9</span>
+              </div>
+              <div class="loading-bar"></div>
+          </div>
+      </div>
+       <!-- WEEK 10 -->
+       <div class="week-card card-wrapper bg-white rounded-2xl shadow-xl cursor-pointer" data-url="week10.html">
+        <div class="card-header h-12 rounded-t-2xl flex items-center justify-between px-4">
+          <div class="text-white font-bold tracking-wide">
+            WEEK 10
+          </div>
+            
+        </div>
+        <div class="card-body bg-[var(--darkblue)] text-white rounded-b-2xl p-6">
+            <div class="flex justify-between items-center mb-2">
+                <p class="text-xl font-semibold tracking-wide">Final</p>
+                
+            </div>
+            <div class="flex items-center gap-2 mb-3">
+                <div class="h-1 w-full bg-gray-600 rounded-full"></div>
+                <span class="text-xs text-[var(--lightblue)]">W10</span>
+            </div>
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+
+  </div>
+
+  
+  
+  
+      
+  </div>
+  <div id="plannerOverlay"
+  class="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-xl
+         flex items-center justify-center
+         opacity-0 pointer-events-none transition">
+
+  <div id="plannerPanel"
+    class="planner-card w-full max-w-5xl
+           transform scale-[0.92] translate-y-8 opacity-0
+           transition-all duration-500">
+
+    <div class="flex justify-between items-center mb-6 text-white">
+      <h2 class="text-2xl font-bold">Weekly Planner</h2>
+      <button id="closePlanner">✕</button>
+    </div>
+
+    <div class="flex gap-2 mb-6">
+      <button class="week-switch active" data-week="1">W1</button>
+      <button class="week-switch" data-week="2">W2</button>
+      <button class="week-switch" data-week="3">W3</button>
+      <button class="week-switch" data-week="4">W4</button>
+      <button class="week-switch" data-week="5">W5</button>
+      <button class="week-switch" data-week="6">W6</button>
+      <button class="week-switch" data-week="7">W7</button>
+      <button class="week-switch" data-week="8">W8</button>
+      <button class="week-switch" data-week="9">W9</button>
+      <button class="week-switch" data-week="10">W10</button>
+    </div>
+
+    <div id="plannerGrid" class="grid grid-cols-7 gap-6 mb-8 text-white"></div>
+
+    <div>
+      <div class="flex justify-between text-sm text-white/70 mb-2">
+        <span>Progress</span>
+        <span id="progressText">0%</span>
+      </div>
+      <div class="h-2 bg-white/20 rounded-full">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-red-500 to-blue-500 w-0"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="h-screen"></div> 
+  <!-- 🔵 SCRIPT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    
+      /* ================= WEEK CARD CLICK ================= */
+      document.querySelectorAll(".week-card").forEach(card => {
+        card.addEventListener("click", () => {
+          const url = card.dataset.url;
+          if (url) window.location.href = url;
+        });
+    
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+    
+          const rotateY = ((x / rect.width) - 0.5) * 20;
+          const rotateX = -((y / rect.height) - 0.5) * 20;
+    
+          card.style.transform =
+            `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+          card.style.transition = "transform 0s";
+        });
+    
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+          card.style.transition = "transform 0.4s ease";
+        });
+      });
+    
+      /* ================= DROPDOWN ================= */
+      const openWeekBtn = document.getElementById("openWeekBtn");
+      if (openWeekBtn) {
+        openWeekBtn.addEventListener("click", () => {
+          const week = document.getElementById("weekSelector").value;
+          window.location.href = `week${week}.html`;
+        });
+      }
+    
+      /* ================= SEARCH FILTER ================= */
+      const searchInput = document.getElementById("searchInput");
+      if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+          const q = e.target.value.toLowerCase();
+          document.querySelectorAll(".week-card").forEach(card => {
+            card.style.display =
+              card.innerText.toLowerCase().includes(q) ? "block" : "none";
+          });
+        });
+      }
+    
+      /* ================= SEARCH TOGGLE ================= */
+      const toggle = document.getElementById("searchToggle");
+      if (toggle && searchInput) {
+        toggle.addEventListener("click", (e) => {
+          e.stopPropagation();
+          searchInput.classList.toggle("w-0");
+          searchInput.classList.toggle("opacity-0");
+    
+          if (!searchInput.classList.contains("w-0")) {
+            searchInput.focus();
+          }
+        });
+    
+        document.addEventListener("click", (e) => {
+          if (!toggle.contains(e.target) && !searchInput.contains(e.target)) {
+            searchInput.classList.add("w-0", "opacity-0");
+          }
+        });
+      }
+    
+      /* ================= TABS ================= */
+      const tabs = document.querySelectorAll(".tab");
+      const panels = document.querySelectorAll(".tab-panel");
+    
+      tabs.forEach(tab => {
+        tab.addEventListener("mouseenter", () => {
+          const id = tab.dataset.tab;
+    
+          tabs.forEach(t => t.classList.remove("active"));
+          panels.forEach(p => p.classList.remove("active"));
+    
+          tab.classList.add("active");
+          document.getElementById(id)?.classList.add("active");
+        });
+      });
+    
+    });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+      
+        const openBtn  = document.getElementById("openPlanner");
+        const closeBtn = document.getElementById("closePlanner");
+        const overlay  = document.getElementById("plannerOverlay");
+        const panel    = document.getElementById("plannerPanel");
+      
+        if (!openBtn || !overlay || !panel) return;
+      
+        openBtn.addEventListener("click", () => {
+          document.body.classList.add("modal-open");
+      
+          overlay.classList.remove("opacity-0","pointer-events-none");
+      
+          requestAnimationFrame(() => {
+            panel.classList.remove("opacity-0","translate-y-8","scale-[0.92]");
+          });
+        });
+      
+        function closePlanner(){
+          document.body.classList.remove("modal-open");
+      
+          overlay.classList.add("opacity-0","pointer-events-none");
+          panel.classList.add("opacity-0","translate-y-8","scale-[0.92]");
+        }
+      
+        closeBtn.addEventListener("click", closePlanner);
+      
+        overlay.addEventListener("click", e => {
+          if (e.target === overlay) closePlanner();
+        });
+      
+        document.addEventListener("keydown", e => {
+          if (e.key === "Escape") closePlanner();
+        });
+      
+      });
+
+      
+      </script>
+      <script>
+        /* ================= PLANNER DATA ================= */
+        
+        const plannerData = {
+          1: {
+            Mon: ["Intro project", "Briefing lezen"],
+            Tue: ["Analyse opdracht"],
+            Wed: ["Low-fi schetsen"],
+            Thu: ["Structuur bepalen"],
+            Fri: ["Feedback verwerken"],
+            Sat: [],
+            Sun: []
+          },
+          2: {
+            Mon: ["Probleemdefinitie"],
+            Tue: ["User research"],
+            Wed: ["User flows"],
+            Thu: ["Informatiearchitectuur"],
+            Fri: ["Iteraties"],
+            Sat: [],
+            Sun: []
+          },
+          3: {
+            Mon: ["Mid-fi wireframes"],
+            Tue: ["Navigatie testen"],
+            Wed: ["Componenten opzetten"],
+            Thu: ["Layout verfijnen"],
+            Fri: ["Review"],
+            Sat: [],
+            Sun: []
+          },
+          4: {
+            Mon: ["Hi-fi start"],
+            Tue: ["Kleuronderzoek"],
+            Wed: ["Typografie"],
+            Thu: ["UI polish"],
+            Fri: ["Feedback"],
+            Sat: [],
+            Sun: []
+          },
+          5: {
+            Mon: ["Design system"],
+            Tue: ["Iconenset"],
+            Wed: ["Accessibility check"],
+            Thu: ["Contrast testen"],
+            Fri: ["Refinement"],
+            Sat: [],
+            Sun: []
+          },
+          6: {
+            Mon: ["Interacties"],
+            Tue: ["Micro-animaties"],
+            Wed: ["Hover states"],
+            Thu: ["Usability tests"],
+            Fri: ["Fixes"],
+            Sat: [],
+            Sun: []
+          },
+          7: {
+            Mon: ["User testing"],
+            Tue: ["Observaties"],
+            Wed: ["Analyse"],
+            Thu: ["Aanpassingen"],
+            Fri: ["Iteraties"],
+            Sat: [],
+            Sun: []
+          },
+          8: {
+            Mon: ["Final UI"],
+            Tue: ["Responsive testen"],
+            Wed: ["Edge cases"],
+            Thu: ["Bug fixes"],
+            Fri: ["Final check"],
+            Sat: [],
+            Sun: []
+          },
+          9: {
+            Mon: ["Presentatie opstellen"],
+            Tue: ["Slides maken"],
+            Wed: ["Storytelling"],
+            Thu: ["Oefenen"],
+            Fri: ["Feedback verwerken"],
+            Sat: [],
+            Sun: []
+          },
+          10: {
+            Mon: ["Portfolio"],
+            Tue: ["Reflectiedocument"],
+            Wed: ["Documentatie"],
+            Thu: ["Final check"],
+            Fri: ["Indienen"],
+            Sat: [],
+            Sun: []
+          }
+        };
+        
+        const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+        </script>
+        <script>
+          /* ================= PLANNER LOGIC ================= */
+          
+          const grid = document.getElementById("plannerGrid");
+          const bar  = document.getElementById("progressBar");
+          const text = document.getElementById("progressText");
+          
+          function renderWeek(week){
+            grid.innerHTML = "";
+          
+            let total = 0;
+            let done  = 0;
+          
+            days.forEach(day => {
+              const col = document.createElement("div");
+              col.className = "space-y-3";
+          
+              col.innerHTML = `<h4 class="text-sm opacity-60">${day}</h4>`;
+          
+              plannerData[week][day].forEach((task, i) => {
+                total++;
+          
+                const key = `week-${week}-${day}-${i}`;
+                const checked = localStorage.getItem(key) === "true";
+          
+                if (checked) done++;
+          
+                const item = document.createElement("label");
+                item.className = "task cursor-pointer";
+          
+                const cb = document.createElement("input");
+                cb.type = "checkbox";
+                cb.checked = checked;
+          
+                cb.addEventListener("change", () => {
+                  localStorage.setItem(key, cb.checked);
+                  updateProgress();
+                });
+          
+                item.appendChild(cb);
+                item.append(task);
+          
+                col.appendChild(item);
+              });
+          
+              grid.appendChild(col);
+            });
+          
+            updateProgress();
+          
+            function updateProgress(){
+              let d = 0;
+              document.querySelectorAll("#plannerGrid input").forEach(cb=>{
+                if(cb.checked) d++;
+              });
+              const percent = total ? Math.round(d / total * 100) : 0;
+              bar.style.width = percent + "%";
+              text.innerText = percent + "%";
+            }
+          }
+          
+          /* ================= WEEK SWITCH ================= */
+          
+          document.querySelectorAll(".week-switch").forEach(btn=>{
+            btn.addEventListener("click",()=>{
+              document.querySelectorAll(".week-switch").forEach(b=>b.classList.remove("active"));
+              btn.classList.add("active");
+              renderWeek(btn.dataset.week);
+            });
+          });
+          
+          /* INIT */
+          renderWeek(1);
+          </script>
+     
+   
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind Fonts Overview</title>
+  <link href="./dist/output.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/flexboxes.css">
+  <link rel="stylesheet" href="assets/nav.css">
+  <link rel="stylesheet" href="assets/typography.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <nav class="w-full fixed top-0 z-50
+            bg-black/40 backdrop-blur-md
+            border-b border-white/10
+            text-white px-10 py-4
+            flex justify-between items-center
+            shadow-lg">
+  <button onclick="window.location.href='index.html'" class="text-lg bg-[#005BBB] px-4 py-2 rounded-lg">⬅ Back</button>
+  <h1 class="text-2xl font-bold">Week 9 – Extension</h1>
+  </nav>
+  <main class="pt-28 px-10 pb-24">
+    
+  </main>
+  
+  
+  
+  <div class="bg-white p-8 rounded-xl shadow-xl mb-10">
+  <h2 class="text-3xl text-[#005BBB] font-bold">Week 9: Extension – Lost in Tra(i)nslation+</h2>
+  <p class="text-gray-600">10 november 2025</p>
+  
+  <p class="mt-6 text-lg leading-relaxed text-gray-700">
+    Deze week werkte ik aan een uitbreiding binnen mijn trein-app: een eenvoudige
+    “producten”-flow om tickets te bekijken en aan te kopen. 
+    Ik ontwierp meerdere tickettypes met een duidelijke visuele codering
+    (kleur + icon) en bouwde een basis aankoopflow met een bevestigingsscherm.
+    De focus lag op overzicht, consistentie en meertalige duidelijkheid.
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-3 gap-8 mb-12">
+  
+  <div class="bg-white p-6 rounded-xl shadow-lg border-t-[6px] border-[#005BBB]">
+  <h3 class="text-xl font-bold text-[#005BBB]">✔ Uitbreiding</h3>
+  <ul class="mt-3 text-gray-700">
+    <li>– Producten/Products scherm ontworpen</li>
+    <li>– 4 tickettypes uitgewerkt (Abonnement, Weekend, Treinticket, Go Pass)</li>
+    <li>– Detailpagina’s per ticket gemaakt</li>
+    <li>– Bevestigingsscherm (Bevestig aankoop / Annuleer) toegevoegd</li>
+  </ul>
+  </div>
+  
+  <div class="bg-white p-6 rounded-xl shadow-lg border-t-[6px] border-[#E62929]">
+  <h3 class="text-xl font-bold text-[#E62929]">📌 Belangrijk</h3>
+  <ul class="mt-3 text-gray-700">
+    <li>– Kleurcodering helpt snelle herkenning</li>
+    <li>– Meertaligheid vraagt extra ruimte en duidelijke labels</li>
+    <li>– Consistente knoppen/states zorgen voor rust</li>
+  </ul>
+  </div>
+  
+  <div class="bg-white p-6 rounded-xl shadow-lg border-t-[6px] border-[#4A90E2]">
+  <h3 class="text-xl font-bold text-[#4A90E2]">➡ Klaar voor eindpresentatie</h3>
+  <ul class="mt-3 text-gray-700">
+    <li>– Productenflow staat als basis</li>
+    <li>– Nog optimaliseren: UX copy en fout/loader states</li>
+    <li>– Volgende: testen + verfijnen van de aankoopstappen</li>
+  </ul>
+  </div>
+  
+  </div>
+  <div class="bg-white p-8 rounded-xl shadow-xl mb-20">
+    <h3 class="text-2xl font-bold text-[#005BBB] mb-6">
+      Screens – Ticket producten & aankoopflow
+    </h3>
+  
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-6">
+  
+      <figure>
+        <img src="kleurenhome.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Producten overzicht</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="geel.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Abonnement – detail</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="geel1.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Abonnement – bevestiging</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="groen.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Weekend Ticket – detail</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="groen1.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Weekend Ticket – bevestiging</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="orangje.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Treinticket – detail</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="orangje1.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Treinticket – bevestiging</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="paars.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Go Pass – detail</figcaption>
+      </figure>
+  
+      <figure>
+        <img src="paars1.png" class="rounded-xl shadow-md">
+        <figcaption class="mt-2 text-sm text-gray-600">Go Pass – bevestiging</figcaption>
+      </figure>
+  
+    </div>
+  </div>
+  
+  
+  </div>
+  
+  <footer class="bg-[#111] text-white py-6 text-center">
+  <p class="opacity-70">Lost in Tra(i)nslation – Week 9 © 2025</p>
+  </footer>
+  <style>
+    body {
+      background:
+        radial-gradient(
+          circle at bottom left,
+          rgba(59,130,246,0.25),
+          transparent 55%
+        ),
+        linear-gradient(
+          180deg,
+          #a32121 0%,
+          #933131 20%,
+          #0a1b68 55%,
+          #040c2e 100%
+        );
+    
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    </style>
+  </body>
+  </html>
